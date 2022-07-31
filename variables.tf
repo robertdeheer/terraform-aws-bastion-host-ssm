@@ -85,6 +85,11 @@ variable "instance" {
   }
 }
 
+variable "ami_filter" {
+  description = "The search filter string for the bastion AMI. The default is amzn2-ami-hvm-*-x86_64-ebs"
+  default = "amzn2-ami-hvm-*-x86_64-ebs"
+}
+
 variable "tags" {
   type        = map(string)
   description = "A list of tags to add to all resources."

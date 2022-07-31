@@ -5,11 +5,11 @@ data "aws_region" "this" {
 data "aws_ami" "latest_amazon_linux" {
   most_recent = true
 
-  owners = ["amazon"]
+  owners = ["amazon", data.aws_caller_identity.current.id]
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-ebs"]
+    values = [var.ami_filter]
   }
 }
 
@@ -129,7 +129,7 @@ resource "aws_launch_template" "manual_start" {
   update_default_version = true
 
   iam_instance_profile {
-    name = module.instance_profile_role.iam_role_name
+    name = "AmazonSSMRoleForInstancesQuickSetup" # module.instance_profile_role.iam_role_name
   }
 
   monitoring {
